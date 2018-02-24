@@ -24,6 +24,10 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-surround'
 Plugin 'wincent/Command-T'
+Plugin 'tomlion/vim-solidity'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 filetype plugin indent on       " fix html and js indenting
@@ -94,4 +98,5 @@ if exists('$TMUX')
 		  au BufNewFile,BufRead *.json.jbuilder set ft=ruby"
 		  au BufNewFile,BufRead *.ejs set ft=html
 		  au BufNewFile,BufRead *.xm set filetype=objc
+                  au BufNewFile,BufRead *.sol set ft=solidity
                   cnoremap %% <C-R>=expand('%:h').'/'<cr>
