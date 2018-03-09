@@ -5,6 +5,7 @@ syntax enable
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+imap ;; <ESC>
 Plugin 'gmarik/Vundle.vim'
 
 " let Vundle manage Vundle
