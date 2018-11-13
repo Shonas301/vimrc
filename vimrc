@@ -4,11 +4,13 @@ syntax enable
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+set foldmethod=indent
 
 imap ;; <ESC>
 Plugin 'gmarik/Vundle.vim'
 
 " let Vundle manage Vundle
+Plugin 'moll/vim-node'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
@@ -29,6 +31,10 @@ Plugin 'tomlion/vim-solidity'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'fatih/vim-go'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'rgrinberg/vim-ocaml'
+Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'lervag/vimtex'
 
 call vundle#end()
 filetype plugin indent on       " fix html and js indenting
@@ -64,40 +70,48 @@ colorscheme jellybeans
 " Fix Cursor in TMUX
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-	else
-	  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-	    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-		endif
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
-		" Enable basic mouse behavior such as resizing buffers.
-		set mouse=a
-		if exists('$TMUX')  " Support resizing in tmux
-		  set ttymouse=xterm2
-		  endif
+" Enable basic mouse behavior such as resizing buffers.
+set mouse=a
+if exists('$TMUX')  " Support resizing in tmux
+  set ttymouse=xterm2
+endif
 
-		  " ############################ keyboard shortcuts ############################
+" ############################ keyboard shortcuts ############################
 
 
-		  "  vim splits
-		  " easier mappings for switching panes
-		  nnoremap <C-J> <C-W><C-J>
-		  nnoremap <C-K> <C-W><C-K>
-		  nnoremap <C-L> <C-W><C-L>
-		  nnoremap <C-H> <C-W><C-H>
+"  vim splits
+" easier mappings for switching panes
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
-		  " correct :W to :w, :Q to :q, & :Wq to :wq
-		  cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
-		  cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
-		  cnoreabbrev <expr> Wq ((getcmdtype() is# ':' && getcmdline() is# 'Wq')?('wq'):('Wq'))
+" correct :W to :w, :Q to :q, & :Wq to :wq
+cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+cnoreabbrev <expr> Q ((getcmdtype() is# ':' && getcmdline() is# 'Q')?('q'):('Q'))
+cnoreabbrev <expr> Wq ((getcmdtype() is# ':' && getcmdline() is# 'Wq')?('wq'):('Wq'))
 
-		  let mapleader = ','
+let mapleader = ','
 
-		  nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-		  " fix my syntax highlightings
-		  au BufNewFile,BufRead *.json.jbuilder set ft=ruby"
-		  au BufNewFile,BufRead *.ejs set ft=html
-		  au BufNewFile,BufRead *.xm set filetype=objc
-                  au BufNewFile,BufRead *.sol set ft=solidity
-                  cnoremap %% <C-R>=expand('%:h').'/'<cr>
+" fix my syntax highlightings
+au BufNewFile,BufRead *.json.jbuilder set ft=ruby"
+au BufNewFile,BufRead *.ejs set ft=html
+au BufNewFile,BufRead *.xm set filetype=objc
+au BufNewFile,BufRead *.sol set ft=solidity
+au BufNewFile,BufRead *.ts set ft=typescript
+au BufNewFile,BufRead *.tsx set ft=typescript
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+
+au BufNewFile,BufRead *.txt set tw=80
+au BufNewFile,BufRead *.md set tw=80
+au BufNewFile,BufRead *.tex set tw=80
+
+
